@@ -32,10 +32,3 @@ export const displayLocalDate = (date: Date) => {
 
     return `${localDate.getUTCDate()} ${months[localDate.getUTCMonth()]} ${localDate.getUTCFullYear()}`
 }
-
-export const dateWithoutTime = (date: Date) => {
-    var newDate = new Date(date)
-    newDate.setHours(0, 0, 0, 0)
-
-    return newDate
-}

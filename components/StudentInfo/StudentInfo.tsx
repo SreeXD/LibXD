@@ -6,7 +6,7 @@ import * as S from './StudentInfoStyles'
 import * as GS from '../General/Styles'
 import { CloseButton, CloseSpan } from '../AddStudent/AddStudentStyles'
 import List from '../List/List'
-import { displayLocalDate, dateWithoutTime } from '../../utils/utils'
+import { displayLocalDate } from '../../utils/utils'
 
 const StudentInfo = (props: any) => {
     const studentInfo = props.studentInfo 
@@ -145,7 +145,7 @@ const StudentInfo = (props: any) => {
                                     b.dueDate = new Date(b.dueDate)
 
                                     return (
-                                        <GS.TableRow key={i} className={dateWithoutTime(b.dueDate) < dateWithoutTime(todayRef.current) ? 'overdue' : ''}>
+                                        <GS.TableRow key={i} className={b.dueDate < todayRef.current ? 'overdue' : ''}>
                                             <GS.TableData>{b.isbn}</GS.TableData>
                                             <GS.TableData>{b.title}</GS.TableData>
                                             <GS.TableData>{displayLocalDate(b.borrowDate)}</GS.TableData>

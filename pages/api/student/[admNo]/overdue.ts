@@ -13,7 +13,6 @@ const handler = nc<NextApiRequestWithSession, NextApiResponse>()
         let { admNo }: any = req.query 
 
         const date = new Date()
-        date.setUTCHours(0, 0, 0, 0)
 
         const query: any = {
             where: {

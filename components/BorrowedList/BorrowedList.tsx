@@ -12,7 +12,7 @@ import StudentInfo from '../StudentInfo/StudentInfo'
 import BorrowOrReturnBook from '../BorrowOrReturnBook/BorrowOrReturnBook'
 import List from '../List/List'
 
-import { displayLocalDate, dateWithoutTime } from '../../utils/utils'
+import { displayLocalDate } from '../../utils/utils'
 
 const BorrowedList = (props: any) => {
     const [mouse, setMouse] = useState<any>({ x: 0, y: 0 })
@@ -258,7 +258,7 @@ const BorrowedList = (props: any) => {
                                     b.dueDate = new Date(b.dueDate)
 
                                     return (
-                                        <GS.TableRow key={i} className={ dateWithoutTime(b.dueDate) < dateWithoutTime(today.current) ? 'overdue' : '' }>
+                                        <GS.TableRow key={i} className={ b.dueDate < today.current ? 'overdue' : '' }>
                                             <GS.TableData onClick={e => onAdmnoCellClick(b.admNo)}>
                                                 <S.TableDataInner>
                                                     <S.TableDataUpper>{b.admNo}</S.TableDataUpper>

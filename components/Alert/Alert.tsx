@@ -9,7 +9,7 @@ export const Alert = (props: any) => {
             <S.WarningIcon src='/resources/warning.png' />
 
             <S.AlertText>
-                {"Student admno {props.admNo} hasn't returned any of the following books that are overdue"}
+                {`Student admno ${props.admNo} hasn't returned any of the following books that are overdue`}
             </S.AlertText>
 
             <S.BooksList>
