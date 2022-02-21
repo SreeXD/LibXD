@@ -10,7 +10,6 @@ import { SubmitContainer, Submit, SubmitSpan } from '../SignInOrUp/SignInOrUpSty
 import { LoadingContainer, StatusMessage } from '../AddOrRemoveBook/AddOrRemoveBookStyles'
 import { CloseButton, CloseSpan } from '../AddStudent/AddStudentStyles'
 import Alert from '../Alert/Alert'
-import { clearTimeFromDate } from '../../utils/utils'
 
 const BorrowOrReturnBook = (props: any) => {
     const [ inputs, setInputs ] = useState<any>({ admNo: '', isbn: '', duration: 7 })
@@ -325,14 +324,12 @@ const BorrowOrReturnBook = (props: any) => {
 
         try {
             if (borrowing) {
+                let borrowDate = new Date()
+
                 let dueDate = new Date()
-                clearTimeFromDate(dueDate)
                 dueDate.setDate(dueDate.getDate() + inputs.duration)
 
-                let borrowDate = new Date()
-                clearTimeFromDate(borrowDate)
-
-                const res = await studentsApi.fetchOverdue(admNo, borrowDate)
+                const res = await studentsApi.fetchOverdue(admNo)
                 const overdue = res.data.overdue as any[]
 
                 const proceed = async () => {

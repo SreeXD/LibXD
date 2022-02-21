@@ -13,6 +13,4 @@ export const fetchBorrowed = (admNo: number, params?: any) => axios.get(`/api/st
     params
 })
 
-export const fetchOverdue = (admNo: number, date: Date) => axios.get(`/api/student/${admNo}/overdue`, { 
-    params: { date }
-})
+export const fetchOverdue = (admNo: number) => axios.get(`/api/student/${admNo}/overdue`)

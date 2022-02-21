@@ -4,23 +4,23 @@ import { Op } from 'sequelize'
 
 import type { NextApiRequestWithSession } from '../../../../utils/NextApiRequestWithSession'
 import authMiddleware from '../../../../middlewares/auth'
-import { convertUTCDateToLocalDate } from '../../../../utils/utils'
 let db: any = require('../../../../db/models')
 
 const handler = nc<NextApiRequestWithSession, NextApiResponse>()
     .use(authMiddleware)    
     .get(async (req, res) => {
         const userId = req.session.userId
-        let { admNo, date }: any = req.query 
+        let { admNo }: any = req.query 
 
-        date = convertUTCDateToLocalDate(new Date(date))
+        const date = new Date()
+        date.setUTCHours(0, 0, 0, 0)
 
         const query: any = {
             where: {
                 userId, 
                 admNo,
                 dueDate: {
-                    [Op.lt]: date
+                    [Op.lt]: date.toISOString()
                 }
             },
             order: [

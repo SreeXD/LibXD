@@ -12,7 +12,7 @@ import StudentInfo from '../StudentInfo/StudentInfo'
 import BorrowOrReturnBook from '../BorrowOrReturnBook/BorrowOrReturnBook'
 import List from '../List/List'
 
-import { formatDate, clearTimeFromDate, stringToDate } from '../../utils/utils'
+import { displayLocalDate, dateWithoutTime } from '../../utils/utils'
 
 const BorrowedList = (props: any) => {
     const [mouse, setMouse] = useState<any>({ x: 0, y: 0 })
@@ -90,7 +90,6 @@ const BorrowedList = (props: any) => {
 
     useEffect(() => {
         today.current = new Date()
-        clearTimeFromDate(today.current)
 
         const bookInfoEle = document.getElementById('book-info')
             
@@ -254,26 +253,31 @@ const BorrowedList = (props: any) => {
                                     <GS.TableHeader>Due date</GS.TableHeader>
                                 </GS.TableRow>
 
-                                {borrowed.map((b, i) => (
-                                    <GS.TableRow key={i} className={ stringToDate(b.dueDate) < today.current ? 'overdue' : '' }>
-                                        <GS.TableData onClick={e => onAdmnoCellClick(b.admNo)}>
-                                            <S.TableDataInner>
-                                                <S.TableDataUpper>{b.admNo}</S.TableDataUpper>
-                                                <S.TableDataUnder>{b.name}</S.TableDataUnder>
-                                            </S.TableDataInner>
-                                        </GS.TableData>
+                                {borrowed.map((b, i) => {
+                                    b.borrowDate = new Date(b.borrowDate)
+                                    b.dueDate = new Date(b.dueDate)
 
-                                        <GS.TableData onClick={e => onIsbnCellClick(e, b.isbn)} onMouseLeave={onIsbnCellLeave}>
-                                            <S.TableDataInner style={{ display: 'flex', flexDirection: 'column', cursor: 'pointer' }}>
-                                                <S.TableDataUpper>{b.isbn}</S.TableDataUpper>
-                                                <S.TableDataUnder>{b.title}</S.TableDataUnder>
-                                            </S.TableDataInner>
-                                        </GS.TableData>
+                                    return (
+                                        <GS.TableRow key={i} className={ dateWithoutTime(b.dueDate) < dateWithoutTime(today.current) ? 'overdue' : '' }>
+                                            <GS.TableData onClick={e => onAdmnoCellClick(b.admNo)}>
+                                                <S.TableDataInner>
+                                                    <S.TableDataUpper>{b.admNo}</S.TableDataUpper>
+                                                    <S.TableDataUnder>{b.name}</S.TableDataUnder>
+                                                </S.TableDataInner>
+                                            </GS.TableData>
 
-                                        <GS.TableData>{formatDate(b.borrowDate)}</GS.TableData>
-                                        <GS.TableData>{formatDate(b.dueDate)}</GS.TableData>
-                                    </GS.TableRow>
-                                ))}
+                                            <GS.TableData onClick={e => onIsbnCellClick(e, b.isbn)} onMouseLeave={onIsbnCellLeave}>
+                                                <S.TableDataInner style={{ display: 'flex', flexDirection: 'column', cursor: 'pointer' }}>
+                                                    <S.TableDataUpper>{b.isbn}</S.TableDataUpper>
+                                                    <S.TableDataUnder>{b.title}</S.TableDataUnder>
+                                                </S.TableDataInner>
+                                            </GS.TableData>
+
+                                            <GS.TableData>{displayLocalDate(b.borrowDate)}</GS.TableData>
+                                            <GS.TableData>{displayLocalDate(b.dueDate)}</GS.TableData>
+                                        </GS.TableRow>
+                                    )
+                                })}
                             </tbody>
                         </GS.Table>
                     </GS.TableContainer>

@@ -3,7 +3,6 @@ import nc from 'next-connect'
 
 import type { NextApiRequestWithSession } from '../../../utils/NextApiRequestWithSession'
 import authMiddleware from '../../../middlewares/auth'
-import { convertUTCDateToLocalDate } from '../../../utils/utils'
 
 const db: any = require('../../../db/models')
 
@@ -17,8 +16,8 @@ const handler = nc<NextApiRequestWithSession, NextApiResponse>()
             return res.status(400).end()
         }
 
-        borrowDate = convertUTCDateToLocalDate(new Date(borrowDate))
-        dueDate = convertUTCDateToLocalDate(new Date(dueDate))
+        borrowDate = new Date(borrowDate)
+        dueDate = new Date(dueDate)
 
         if (isNaN(dueDate.valueOf()) || isNaN(borrowDate.valueOf())) {
             return res.status(400).end()
