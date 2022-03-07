@@ -3,10 +3,9 @@
 A 3D webpage for library management in schools and universities
 
 ### Features
-- Create your own user library with books and students
-- Add books to the user library using their respective isbns
-- Add details about students before lending books
-- Keep track of currently lent out books and the students who borrowed them
+- Users can create their own user library by signing up
+- Allows users to adds books and students to the user library and lend out books to students 
+- keeps track of lent out books, due dates and the students who borrowed them
 
 ### Tech stack
 The project is built using Next JS and uses Sequelize ORM to connect to a MySQL database
